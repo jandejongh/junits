@@ -16,7 +16,7 @@
  */
 package org.javajdj.junits;
 
-/** The resolution of (e.g.) an instrument reading or a display.
+/** The resolution of (e.g.) an instrument reading or a display (in number of digits).
  *
  * @author Jan de Jongh {@literal <jfcmdejongh@gmail.com>}
  * 

@@ -24,7 +24,15 @@ import java.util.function.Function;
 
 /** A physical (scalar) unit.
  *
- * @see Quantity
+ * <p>
+ * This {@link Enum} class contains (or aims to) the most important
+ * physical unit used in electrical engineering.
+ * For practical reasons, it includes multiple units for a "basic property",
+ * like {@link Unit#UNIT_A} and {@link Unit#UNIT_mA} for the basic property "current",
+ * i.e., for {@link PropertyBaseUnit#PROPERTY_CURRENT}.
+ * Hence, for a more fundamental picture, refer to {@link PropertyBaseUnit}.
+ * 
+ * @see PropertyBaseUnit
  * 
  * @author Jan de Jongh {@literal <jfcmdejongh@gmail.com>}
  * 
@@ -42,150 +50,164 @@ public enum Unit
   // DIMENSIONLESS
   //
   
-  UNIT_NONE (Quantity.QUANTITY_NONE, 1, ""),
+  UNIT_NONE (PropertyBaseUnit.PROPERTY_NONE, 1, ""),
   
   //
   // VOLTAGE
   //
-  UNIT_pV  (Quantity.QUANTITY_VOLTAGE, 1E-12, "pV"),
-  UNIT_nV  (Quantity.QUANTITY_VOLTAGE, 1E-9 , "nV"),
-  UNIT_muV (Quantity.QUANTITY_VOLTAGE, 1E-6 , "\u03BCV"),
-  UNIT_mV  (Quantity.QUANTITY_VOLTAGE, 1E-3 , "mV"),
-  UNIT_V   (Quantity.QUANTITY_VOLTAGE, 1    , "V"),
-  UNIT_kV  (Quantity.QUANTITY_VOLTAGE, 1E3  , "kV"),
+  UNIT_pV  (PropertyBaseUnit.PROPERTY_VOLTAGE, 1E-12, "pV"),
+  UNIT_nV  (PropertyBaseUnit.PROPERTY_VOLTAGE, 1E-9 , "nV"),
+  UNIT_muV (PropertyBaseUnit.PROPERTY_VOLTAGE, 1E-6 , "\u03BCV"),
+  UNIT_mV  (PropertyBaseUnit.PROPERTY_VOLTAGE, 1E-3 , "mV"),
+  UNIT_V   (PropertyBaseUnit.PROPERTY_VOLTAGE, 1    , "V"),
+  UNIT_kV  (PropertyBaseUnit.PROPERTY_VOLTAGE, 1E3  , "kV"),
   
   //
   // CURRENT
   //
-  UNIT_pA  (Quantity.QUANTITY_CURRENT, 1E-12, "pA"),
-  UNIT_nA  (Quantity.QUANTITY_CURRENT, 1E-9 , "nA"),
-  UNIT_muA (Quantity.QUANTITY_CURRENT, 1E-6 , "\u03BCA"),
-  UNIT_mA  (Quantity.QUANTITY_CURRENT, 1E-3 , "mA"),
-  UNIT_A   (Quantity.QUANTITY_CURRENT, 1    , "A"),
-  UNIT_kA  (Quantity.QUANTITY_CURRENT, 1E3  , "kA"),
+  UNIT_pA  (PropertyBaseUnit.PROPERTY_CURRENT, 1E-12, "pA"),
+  UNIT_nA  (PropertyBaseUnit.PROPERTY_CURRENT, 1E-9 , "nA"),
+  UNIT_muA (PropertyBaseUnit.PROPERTY_CURRENT, 1E-6 , "\u03BCA"),
+  UNIT_mA  (PropertyBaseUnit.PROPERTY_CURRENT, 1E-3 , "mA"),
+  UNIT_A   (PropertyBaseUnit.PROPERTY_CURRENT, 1    , "A"),
+  UNIT_kA  (PropertyBaseUnit.PROPERTY_CURRENT, 1E3  , "kA"),
   
   //
   // RESISTANCE / IMPEDANCE
   //
-  UNIT_muOhm (Quantity.QUANTITY_RESISTANCE, 1E-6, "\u03BC\u03A9"),
-  UNIT_mOhm  (Quantity.QUANTITY_RESISTANCE, 1E-3, "m\u03A9"),
-  UNIT_Ohm   (Quantity.QUANTITY_RESISTANCE, 1   , "\u03A9"),
-  UNIT_kOhm  (Quantity.QUANTITY_RESISTANCE, 1E3 , "k\u03A9"),
-  UNIT_MOhm  (Quantity.QUANTITY_RESISTANCE, 1E6 , "M\u03A9"),
-  UNIT_GOhm  (Quantity.QUANTITY_RESISTANCE, 1E9 , "G\u03A9"),
+  UNIT_muOhm (PropertyBaseUnit.PROPERTY_RESISTANCE, 1E-6, "\u03BC\u03A9"),
+  UNIT_mOhm  (PropertyBaseUnit.PROPERTY_RESISTANCE, 1E-3, "m\u03A9"),
+  UNIT_Ohm   (PropertyBaseUnit.PROPERTY_RESISTANCE, 1   , "\u03A9"),
+  UNIT_kOhm  (PropertyBaseUnit.PROPERTY_RESISTANCE, 1E3 , "k\u03A9"),
+  UNIT_MOhm  (PropertyBaseUnit.PROPERTY_RESISTANCE, 1E6 , "M\u03A9"),
+  UNIT_GOhm  (PropertyBaseUnit.PROPERTY_RESISTANCE, 1E9 , "G\u03A9"),
   
   //
   // POWER
   //
-  UNIT_aW  (Quantity.QUANTITY_POWER, 1E-18, "aW"),
-  UNIT_fW  (Quantity.QUANTITY_POWER, 1E-15, "fW"),
-  UNIT_pW  (Quantity.QUANTITY_POWER, 1E-12, "pW"),
-  UNIT_nW  (Quantity.QUANTITY_POWER, 1E-9 , "nW"),
-  UNIT_muW (Quantity.QUANTITY_POWER, 1E-6 , "\u03BCW"),
-  UNIT_mW  (Quantity.QUANTITY_POWER, 1E-3 , "mW"),
-  UNIT_W   (Quantity.QUANTITY_POWER, 1    , "W"),
-  UNIT_kW  (Quantity.QUANTITY_POWER, 1E3  , "kW"),
-  UNIT_dBm (Quantity.QUANTITY_POWER, (d) -> 1E-3  * Math.pow (10, d / 10), (d) -> 10 * Math.log10 (d * 1E3), "dBm"),
+  UNIT_aW  (PropertyBaseUnit.PROPERTY_POWER, 1E-18, "aW"),
+  UNIT_fW  (PropertyBaseUnit.PROPERTY_POWER, 1E-15, "fW"),
+  UNIT_pW  (PropertyBaseUnit.PROPERTY_POWER, 1E-12, "pW"),
+  UNIT_nW  (PropertyBaseUnit.PROPERTY_POWER, 1E-9 , "nW"),
+  UNIT_muW (PropertyBaseUnit.PROPERTY_POWER, 1E-6 , "\u03BCW"),
+  UNIT_mW  (PropertyBaseUnit.PROPERTY_POWER, 1E-3 , "mW"),
+  UNIT_W   (PropertyBaseUnit.PROPERTY_POWER, 1    , "W"),
+  UNIT_kW  (PropertyBaseUnit.PROPERTY_POWER, 1E3  , "kW"),
+  UNIT_dBm (PropertyBaseUnit.PROPERTY_POWER, (d) -> 1E-3  * Math.pow (10, d / 10), (d) -> 10 * Math.log10 (d * 1E3), "dBm"),
   
   //
   // TIME [INTERVAL] / DURATION
   //
-  UNIT_ps  (Quantity.QUANTITY_TIME, 1E-12, "ps"),
-  UNIT_ns  (Quantity.QUANTITY_TIME, 1E-9 , "ns"),
-  UNIT_mus (Quantity.QUANTITY_TIME, 1E-6 , "\u03BCs"),
-  UNIT_ms  (Quantity.QUANTITY_TIME, 1E-3 , "ms"),
-  UNIT_s   (Quantity.QUANTITY_TIME, 1    , "s"),
-  UNIT_ks  (Quantity.QUANTITY_TIME, 1E3  , "ks"),
-  UNIT_Ms  (Quantity.QUANTITY_TIME, 1E6  , "Ms"),
-  UNIT_Gs  (Quantity.QUANTITY_TIME, 1E9  , "Gs"),
+  UNIT_ps  (PropertyBaseUnit.PROPERTY_TIME, 1E-12, "ps"),
+  UNIT_ns  (PropertyBaseUnit.PROPERTY_TIME, 1E-9 , "ns"),
+  UNIT_mus (PropertyBaseUnit.PROPERTY_TIME, 1E-6 , "\u03BCs"),
+  UNIT_ms  (PropertyBaseUnit.PROPERTY_TIME, 1E-3 , "ms"),
+  UNIT_s   (PropertyBaseUnit.PROPERTY_TIME, 1    , "s"),
+  UNIT_ks  (PropertyBaseUnit.PROPERTY_TIME, 1E3  , "ks"),
+  UNIT_Ms  (PropertyBaseUnit.PROPERTY_TIME, 1E6  , "Ms"),
+  UNIT_Gs  (PropertyBaseUnit.PROPERTY_TIME, 1E9  , "Gs"),
   
   //
   // FREQUENCY
   //
-  UNIT_muHz (Quantity.QUANTITY_FREQUENCY, 1E-6, "\u03BCHz"),
-  UNIT_mHz  (Quantity.QUANTITY_FREQUENCY, 1E-3, "mHz"),
-  UNIT_Hz   (Quantity.QUANTITY_FREQUENCY, 1   , "Hz"),
-  UNIT_kHz  (Quantity.QUANTITY_FREQUENCY, 1E3 , "kHz"),
-  UNIT_MHz  (Quantity.QUANTITY_FREQUENCY, 1E6 , "MHz"),
-  UNIT_GHz  (Quantity.QUANTITY_FREQUENCY, 1E9 , "GHz"),
-  UNIT_THz  (Quantity.QUANTITY_FREQUENCY, 1E12, "THz"),
+  UNIT_muHz (PropertyBaseUnit.PROPERTY_FREQUENCY, 1E-6, "\u03BCHz"),
+  UNIT_mHz  (PropertyBaseUnit.PROPERTY_FREQUENCY, 1E-3, "mHz"),
+  UNIT_Hz   (PropertyBaseUnit.PROPERTY_FREQUENCY, 1   , "Hz"),
+  UNIT_kHz  (PropertyBaseUnit.PROPERTY_FREQUENCY, 1E3 , "kHz"),
+  UNIT_MHz  (PropertyBaseUnit.PROPERTY_FREQUENCY, 1E6 , "MHz"),
+  UNIT_GHz  (PropertyBaseUnit.PROPERTY_FREQUENCY, 1E9 , "GHz"),
+  UNIT_THz  (PropertyBaseUnit.PROPERTY_FREQUENCY, 1E12, "THz"),
   
   //
   // CAPACITANCE
   //
-  UNIT_pF  (Quantity.QUANTITY_CAPACITANCE, 1E-12,"pF"),
-  UNIT_nF  (Quantity.QUANTITY_CAPACITANCE, 1E-9, "nF"),
-  UNIT_muF (Quantity.QUANTITY_CAPACITANCE, 1E-6, "\u03BCF"),
-  UNIT_mF  (Quantity.QUANTITY_CAPACITANCE, 1E-3, "mF"),
-  UNIT_F   (Quantity.QUANTITY_CAPACITANCE, 1   , "F"),
-  UNIT_kF  (Quantity.QUANTITY_CAPACITANCE, 1E3 , "kF"),
-  UNIT_MF  (Quantity.QUANTITY_CAPACITANCE, 1E6 , "MF"),
+  UNIT_pF  (PropertyBaseUnit.PROPERTY_CAPACITANCE, 1E-12,"pF"),
+  UNIT_nF  (PropertyBaseUnit.PROPERTY_CAPACITANCE, 1E-9, "nF"),
+  UNIT_muF (PropertyBaseUnit.PROPERTY_CAPACITANCE, 1E-6, "\u03BCF"),
+  UNIT_mF  (PropertyBaseUnit.PROPERTY_CAPACITANCE, 1E-3, "mF"),
+  UNIT_F   (PropertyBaseUnit.PROPERTY_CAPACITANCE, 1   , "F"),
+  UNIT_kF  (PropertyBaseUnit.PROPERTY_CAPACITANCE, 1E3 , "kF"),
+  UNIT_MF  (PropertyBaseUnit.PROPERTY_CAPACITANCE, 1E6 , "MF"),
   
   //
   // INDUCTANCE
   //
-  UNIT_pH  (Quantity.QUANTITY_INDUCTANCE, 1E-12,"pH"),
-  UNIT_nH  (Quantity.QUANTITY_INDUCTANCE, 1E-9, "nH"),
-  UNIT_muH (Quantity.QUANTITY_INDUCTANCE, 1E-6, "\u03BCH"),
-  UNIT_mH  (Quantity.QUANTITY_INDUCTANCE, 1E-3, "mH"),
-  UNIT_H   (Quantity.QUANTITY_INDUCTANCE, 1   , "H"),
-  UNIT_kH  (Quantity.QUANTITY_INDUCTANCE, 1E3 , "kH"),
-  UNIT_MH  (Quantity.QUANTITY_INDUCTANCE, 1E6 , "MH"),
+  UNIT_pH  (PropertyBaseUnit.PROPERTY_INDUCTANCE, 1E-12,"pH"),
+  UNIT_nH  (PropertyBaseUnit.PROPERTY_INDUCTANCE, 1E-9, "nH"),
+  UNIT_muH (PropertyBaseUnit.PROPERTY_INDUCTANCE, 1E-6, "\u03BCH"),
+  UNIT_mH  (PropertyBaseUnit.PROPERTY_INDUCTANCE, 1E-3, "mH"),
+  UNIT_H   (PropertyBaseUnit.PROPERTY_INDUCTANCE, 1   , "H"),
+  UNIT_kH  (PropertyBaseUnit.PROPERTY_INDUCTANCE, 1E3 , "kH"),
+  UNIT_MH  (PropertyBaseUnit.PROPERTY_INDUCTANCE, 1E6 , "MH"),
   
   //
   // TEMPERATURE
   //
-  UNIT_K (Quantity.QUANTITY_TEMPERATURE, 1, "K"),
-  UNIT_C (Quantity.QUANTITY_TEMPERATURE, (c) -> c + Unit.ZERO_CELSIUS_K, (k) -> k - Unit.ZERO_CELSIUS_K, "C"),
+  UNIT_K (PropertyBaseUnit.PROPERTY_TEMPERATURE, 1, "K"),
+  UNIT_C (PropertyBaseUnit.PROPERTY_TEMPERATURE,
+    (c) -> c + Constant.ZERO_CELSIUS_K.getValue (),
+    (k) -> k - Constant.ZERO_CELSIUS_K.getValue (),
+    "C"),
   // XXX NEED Fahrenheit!
   
   //
   // ENERGY
   //
-  UNIT_aJ  (Quantity.QUANTITY_ENERGY, 1E-18, "aJ"),
-  UNIT_fJ  (Quantity.QUANTITY_ENERGY, 1E-15, "fJ"),
-  UNIT_pJ  (Quantity.QUANTITY_ENERGY, 1E-12, "pJ"),
-  UNIT_nJ  (Quantity.QUANTITY_ENERGY, 1E-9,  "nJ"),
-  UNIT_muJ (Quantity.QUANTITY_ENERGY, 1E-6,  "\u03BCJ"),
-  UNIT_mJ  (Quantity.QUANTITY_ENERGY, 1E-3,  "mJ"),
-  UNIT_J   (Quantity.QUANTITY_ENERGY, 1,     "J"),
-  UNIT_kJ  (Quantity.QUANTITY_ENERGY, 1E3,   "kJ"),
-  UNIT_MJ  (Quantity.QUANTITY_ENERGY, 1E6,   "MJ"),
-  UNIT_GJ  (Quantity.QUANTITY_ENERGY, 1E9,   "GJ"),
-  UNIT_TJ  (Quantity.QUANTITY_ENERGY, 1E12,  "TJ"),
-  UNIT_PJ  (Quantity.QUANTITY_ENERGY, 1E15,  "PJ"),
-  UNIT_EJ  (Quantity.QUANTITY_ENERGY, 1E18,  "EJ"),
+  UNIT_aJ  (PropertyBaseUnit.PROPERTY_ENERGY, 1E-18, "aJ"),
+  UNIT_fJ  (PropertyBaseUnit.PROPERTY_ENERGY, 1E-15, "fJ"),
+  UNIT_pJ  (PropertyBaseUnit.PROPERTY_ENERGY, 1E-12, "pJ"),
+  UNIT_nJ  (PropertyBaseUnit.PROPERTY_ENERGY, 1E-9,  "nJ"),
+  UNIT_muJ (PropertyBaseUnit.PROPERTY_ENERGY, 1E-6,  "\u03BCJ"),
+  UNIT_mJ  (PropertyBaseUnit.PROPERTY_ENERGY, 1E-3,  "mJ"),
+  UNIT_J   (PropertyBaseUnit.PROPERTY_ENERGY, 1,     "J"),
+  UNIT_kJ  (PropertyBaseUnit.PROPERTY_ENERGY, 1E3,   "kJ"),
+  UNIT_MJ  (PropertyBaseUnit.PROPERTY_ENERGY, 1E6,   "MJ"),
+  UNIT_GJ  (PropertyBaseUnit.PROPERTY_ENERGY, 1E9,   "GJ"),
+  UNIT_TJ  (PropertyBaseUnit.PROPERTY_ENERGY, 1E12,  "TJ"),
+  UNIT_PJ  (PropertyBaseUnit.PROPERTY_ENERGY, 1E15,  "PJ"),
+  UNIT_EJ  (PropertyBaseUnit.PROPERTY_ENERGY, 1E18,  "EJ"),
   
   //
   // DISTANCE
   //
-  UNIT_am  (Quantity.QUANTITY_DISTANCE, 1E-18, "am"),
-  UNIT_fm  (Quantity.QUANTITY_DISTANCE, 1E-15, "fm"),
-  UNIT_pm  (Quantity.QUANTITY_DISTANCE, 1E-12, "pm"),
-  UNIT_nm  (Quantity.QUANTITY_DISTANCE, 1E-9,  "nm"),
-  UNIT_mum (Quantity.QUANTITY_DISTANCE, 1E-6,  "\u03BCm"),
-  UNIT_mm  (Quantity.QUANTITY_DISTANCE, 1E-3,  "mm"),
-  UNIT_cm  (Quantity.QUANTITY_DISTANCE, 1E-2,  "cm"),
-  UNIT_dm  (Quantity.QUANTITY_DISTANCE, 1E-1,  "dm"),
-  UNIT_m   (Quantity.QUANTITY_DISTANCE, 1,     "m"),
-  UNIT_dam (Quantity.QUANTITY_DISTANCE, 1E1,   "dam"),
-  UNIT_hm  (Quantity.QUANTITY_DISTANCE, 1E2,   "hm"),
-  UNIT_km  (Quantity.QUANTITY_DISTANCE, 1E3,   "km"),
-  UNIT_Mm  (Quantity.QUANTITY_DISTANCE, 1E6,   "Mm"),
-  UNIT_Gm  (Quantity.QUANTITY_DISTANCE, 1E9,   "Gm"),
-  UNIT_Tm  (Quantity.QUANTITY_DISTANCE, 1E12,  "Tm"),
-  UNIT_Pm  (Quantity.QUANTITY_DISTANCE, 1E15,  "Pm"),
-  UNIT_Em  (Quantity.QUANTITY_DISTANCE, 1E18,  "Em"),
+  UNIT_am  (PropertyBaseUnit.PROPERTY_DISTANCE, 1E-18, "am"),
+  UNIT_fm  (PropertyBaseUnit.PROPERTY_DISTANCE, 1E-15, "fm"),
+  UNIT_pm  (PropertyBaseUnit.PROPERTY_DISTANCE, 1E-12, "pm"),
+  UNIT_nm  (PropertyBaseUnit.PROPERTY_DISTANCE, 1E-9,  "nm"),
+  UNIT_mum (PropertyBaseUnit.PROPERTY_DISTANCE, 1E-6,  "\u03BCm"),
+  UNIT_mm  (PropertyBaseUnit.PROPERTY_DISTANCE, 1E-3,  "mm"),
+  UNIT_cm  (PropertyBaseUnit.PROPERTY_DISTANCE, 1E-2,  "cm"),
+  UNIT_dm  (PropertyBaseUnit.PROPERTY_DISTANCE, 1E-1,  "dm"),
+  UNIT_m   (PropertyBaseUnit.PROPERTY_DISTANCE, 1,     "m"),
+  UNIT_dam (PropertyBaseUnit.PROPERTY_DISTANCE, 1E1,   "dam"),
+  UNIT_hm  (PropertyBaseUnit.PROPERTY_DISTANCE, 1E2,   "hm"),
+  UNIT_km  (PropertyBaseUnit.PROPERTY_DISTANCE, 1E3,   "km"),
+  UNIT_Mm  (PropertyBaseUnit.PROPERTY_DISTANCE, 1E6,   "Mm"),
+  UNIT_Gm  (PropertyBaseUnit.PROPERTY_DISTANCE, 1E9,   "Gm"),
+  UNIT_Tm  (PropertyBaseUnit.PROPERTY_DISTANCE, 1E12,  "Tm"),
+  UNIT_Pm  (PropertyBaseUnit.PROPERTY_DISTANCE, 1E15,  "Pm"),
+  UNIT_Em  (PropertyBaseUnit.PROPERTY_DISTANCE, 1E18,  "Em"),
+  
+  //
+  // VELOCITY
+  //
+  UNIT_amps  (PropertyBaseUnit.PROPERTY_VELOCITY, 1E-18, "am/s"),
+  UNIT_fmps  (PropertyBaseUnit.PROPERTY_VELOCITY, 1E-15, "fm/s"),
+  UNIT_pmps  (PropertyBaseUnit.PROPERTY_VELOCITY, 1E-12, "pm/s"),
+  UNIT_nmps  (PropertyBaseUnit.PROPERTY_VELOCITY, 1E-9,  "nm/s"),
+  UNIT_mumps (PropertyBaseUnit.PROPERTY_VELOCITY, 1E-6,  "\u03BCm/s"),
+  UNIT_mmps  (PropertyBaseUnit.PROPERTY_VELOCITY, 1E-3,  "mm/s"),
+  UNIT_cmps  (PropertyBaseUnit.PROPERTY_VELOCITY, 1E-2,  "cm/s"),
+  UNIT_dmps  (PropertyBaseUnit.PROPERTY_VELOCITY, 1E-1,  "dm/s"),
+  UNIT_mps   (PropertyBaseUnit.PROPERTY_VELOCITY, 1,     "m/s"),
+  UNIT_damps (PropertyBaseUnit.PROPERTY_VELOCITY, 1E1,   "dam/s"),
+  UNIT_hmps  (PropertyBaseUnit.PROPERTY_VELOCITY, 1E2,   "hm/s"),
+  UNIT_kmps  (PropertyBaseUnit.PROPERTY_VELOCITY, 1E3,   "km/s"),
+  UNIT_Mmps  (PropertyBaseUnit.PROPERTY_VELOCITY, 1E6,   "Mm/s"),
+  UNIT_Gmps  (PropertyBaseUnit.PROPERTY_VELOCITY, 1E9,   "Gm/s"),
+  UNIT_Tmps  (PropertyBaseUnit.PROPERTY_VELOCITY, 1E12,  "Tm/s"),
   
   ;
-  
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  //
-  // PUBLIC STATIC CONSTANTS
-  //
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  
-  public final static double ZERO_CELSIUS_K = 273.15;
   
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //
@@ -194,13 +216,13 @@ public enum Unit
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   
   Unit (
-    final Quantity quantity,
+    final PropertyBaseUnit propertyBaseUnit,
     final Function<Double, Double> toSiUnit,
     final Function<Double, Double> fromSiUnit,
     final boolean multiplicativeToSiUnit,
     final String string)
   {
-    this.quantity = quantity;
+    this.propertyBaseUnit = propertyBaseUnit;
     this.toSiUnit = toSiUnit;
     this.fromSiUnit = fromSiUnit;
     this.multiplicativeToSiUnit = multiplicativeToSiUnit;
@@ -208,20 +230,20 @@ public enum Unit
   }
   
   Unit (
-    final Quantity quantity,
+    final PropertyBaseUnit propertyBaseUnit,
     final double toSiUnitFactor,
     final String string)
   {
-    this (quantity, (d) -> toSiUnitFactor * d, (d) -> d / toSiUnitFactor, true, string);
+    this (propertyBaseUnit, (d) -> toSiUnitFactor * d, (d) -> d / toSiUnitFactor, true, string);
   }
   
   Unit (
-    final Quantity quantity,
+    final PropertyBaseUnit propertyBaseUnit,
     final Function<Double, Double> toSiUnit,
     final Function<Double, Double> fromSiUnit,
     final String string)
   {
-    this (quantity, toSiUnit, fromSiUnit, false, string);
+    this (propertyBaseUnit, toSiUnit, fromSiUnit, false, string);
   }
   
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -230,11 +252,11 @@ public enum Unit
   //
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   
-  private final Quantity quantity;
+  private final PropertyBaseUnit propertyBaseUnit;
   
-  public final Quantity getQuantity ()
+  public final PropertyBaseUnit getPropertyBaseUnit ()
   {
-    return this.quantity;
+    return this.propertyBaseUnit;
   }
   
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -259,7 +281,7 @@ public enum Unit
   
   public final boolean isSiUnit ()
   {
-    return this.quantity.getSiUnit () == this;
+    return this.propertyBaseUnit.getSiUnit () == this;
   }
   
   private final boolean multiplicativeToSiUnit;
@@ -295,14 +317,14 @@ public enum Unit
       throw new IllegalArgumentException ();
     if (fromUnit == toUnit)
       return magnitude;
-    final Quantity fromQuantity = fromUnit.getQuantity ();
-    final Quantity toQuantity = toUnit.getQuantity ();
-    if (fromQuantity == toQuantity)
+    final PropertyBaseUnit fromPropertyBaseUnit = fromUnit.getPropertyBaseUnit ();
+    final PropertyBaseUnit toPropertyBaseUnit = toUnit.getPropertyBaseUnit ();
+    if (fromPropertyBaseUnit == toPropertyBaseUnit)
       return toUnit.getFromSiUnit ().apply (fromUnit.getToSiUnit ().apply (magnitude));
-    if (! Quantity.canConvert (fromQuantity, toQuantity))
+    if (! PropertyBaseUnit.canConvert (fromPropertyBaseUnit, toPropertyBaseUnit))
       throw new IllegalArgumentException ();
     final double fromSi = fromUnit.getToSiUnit ().apply (magnitude);
-    final double toSi = Quantity.convert (fromSi, fromQuantity, toQuantity);
+    final double toSi = PropertyBaseUnit.convert (fromSi, fromPropertyBaseUnit, toPropertyBaseUnit);
     final double to = toUnit.getFromSiUnit ().apply (toSi);
     return to;
   }
@@ -474,7 +496,7 @@ public enum Unit
     final Resolution fromResolution,
     final Unit[] toUnits,
     final Resolution toResolution,
-    final boolean strictQuantity,
+    final boolean strictPropertyBaseUnit,
     final boolean round)
   {
     if (autoRangePolicy == null)
@@ -490,7 +512,7 @@ public enum Unit
     for (final Unit toUnit : toUnits)
       if (toUnit != fromUnit)
       {
-        if (strictQuantity && fromUnit.getQuantity () != toUnit.getQuantity ())
+        if (strictPropertyBaseUnit && fromUnit.getPropertyBaseUnit () != toUnit.getPropertyBaseUnit ())
           continue;
         final double unitScore = scoreMagnitude (autoRangePolicy, Unit.convertToUnit (magnitude, fromUnit, toUnit));
         if (unitScore < unitScores.lastKey ())
