@@ -57,7 +57,7 @@ public final class Constant
   //
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   
-  /** The temperature of zero Celsius expressed in Kelvin.
+  /** The temperature of zero degrees Celsius expressed in Kelvin.
    * 
    * @see Unit#UNIT_C
    * @see Unit#UNIT_K
@@ -65,6 +65,30 @@ public final class Constant
    */
   public final static Constant ZERO_CELSIUS_K = new Constant (273.15, Unit.UNIT_K);
   
+  /** The temperature of zero Kelvin expressed in degrees Celsius.
+   * 
+   * @see Unit#UNIT_K
+   * @see Unit#UNIT_C
+   * 
+   */
+  public final static Constant ZERO_K_CELSIUS = new Constant (-273.15, Unit.UNIT_C);
+  
+  /** The temperature of zero degrees Fahrenheit expressed in Kelvin.
+   * 
+   * @see Unit#UNIT_degreesF
+   * @see Unit#UNIT_K
+   * 
+   */
+  public final static Constant ZERO_FAHRENHEIT_K = new Constant (459.67 * 5 / 9, Unit.UNIT_K);
+
+  /** The temperature of zero Kelvin expressed in degrees Fahrenheit.
+   * 
+   * @see Unit#UNIT_K
+   * @see Unit#UNIT_degreesF
+   * 
+   */
+  public final static Constant ZERO_K_FAHRENHEIT = new Constant (-459.67, Unit.UNIT_degreesF);
+
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //
   // END OF FILE
