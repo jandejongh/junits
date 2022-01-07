@@ -60,7 +60,10 @@ public enum PropertyBaseUnit
   PROPERTY_TEMPERATURE (Unit.UNIT_K),
   PROPERTY_ENERGY      (Unit.UNIT_J),
   PROPERTY_DISTANCE    (Unit.UNIT_m),
-  PROPERTY_VELOCITY    (Unit.UNIT_mps);
+  PROPERTY_VELOCITY    (Unit.UNIT_mps),
+  PROPERTY_ELECTRIC_FIELD_STRENGTH (Unit.UNIT_Vpm),
+  PROPERTY_MAGNETIC_FIELD_STRENGTH (Unit.UNIT_Apm),
+  PROPERTY_MAGNETIC_INDUCTION      (Unit.UNIT_T);
   
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //
@@ -157,6 +160,12 @@ public enum PropertyBaseUnit
         return false;
       case PROPERTY_VELOCITY:
         return false;
+      case PROPERTY_ELECTRIC_FIELD_STRENGTH:
+        return false;
+      case PROPERTY_MAGNETIC_FIELD_STRENGTH:
+        return false;
+      case PROPERTY_MAGNETIC_INDUCTION:
+        return false;
       default:
         throw new RuntimeException ();
     }
@@ -201,6 +210,9 @@ public enum PropertyBaseUnit
       case PROPERTY_ENERGY:
       case PROPERTY_DISTANCE:
       case PROPERTY_VELOCITY:
+      case PROPERTY_ELECTRIC_FIELD_STRENGTH:
+      case PROPERTY_MAGNETIC_FIELD_STRENGTH:
+      case PROPERTY_MAGNETIC_INDUCTION:
         throw new IllegalArgumentException ();
       default:
         throw new RuntimeException ();

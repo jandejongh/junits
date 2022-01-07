@@ -50,7 +50,9 @@ public enum Unit
   // DIMENSIONLESS
   //
   
-  UNIT_NONE (PropertyBaseUnit.PROPERTY_NONE, 1, ""),
+  UNIT_NONE    (PropertyBaseUnit.PROPERTY_NONE, 1,    ""),
+  UNIT_Percent (PropertyBaseUnit.PROPERTY_NONE, 0.01, "%"),
+  UNIT_dB      (PropertyBaseUnit.PROPERTY_NONE, (d) -> Math.pow (10, d / 10), (n) -> 10 * Math.log10 (n), "dB"),
   
   //
   // VOLTAGE
@@ -93,7 +95,7 @@ public enum Unit
   UNIT_mW  (PropertyBaseUnit.PROPERTY_POWER, 1E-3 , "mW"),
   UNIT_W   (PropertyBaseUnit.PROPERTY_POWER, 1    , "W"),
   UNIT_kW  (PropertyBaseUnit.PROPERTY_POWER, 1E3  , "kW"),
-  UNIT_dBm (PropertyBaseUnit.PROPERTY_POWER, (d) -> 1E-3  * Math.pow (10, d / 10), (d) -> 10 * Math.log10 (d * 1E3), "dBm"),
+  UNIT_dBm (PropertyBaseUnit.PROPERTY_POWER, (d) -> 1E-3  * Math.pow (10, d / 10), (p) -> 10 * Math.log10 (p * 1E3), "dBm"),
   
   //
   // TIME [INTERVAL] / DURATION
@@ -146,9 +148,12 @@ public enum Unit
   UNIT_K (PropertyBaseUnit.PROPERTY_TEMPERATURE, 1, "K"),
   UNIT_C (PropertyBaseUnit.PROPERTY_TEMPERATURE,
     (c) -> c + Constant.ZERO_CELSIUS_K.getValue (),
-    (k) -> k - Constant.ZERO_CELSIUS_K.getValue (),
-    "C"),
-  // XXX NEED Fahrenheit!
+    (k) -> k + Constant.ZERO_K_CELSIUS.getValue (),
+    "\u00B0C"),
+  UNIT_degreesF (PropertyBaseUnit.PROPERTY_TEMPERATURE,
+    (f) -> (f * 5 / 9) + Constant.ZERO_FAHRENHEIT_K.getValue (),
+    (k) -> (k * 9 / 5) + Constant.ZERO_K_FAHRENHEIT.getValue (),
+    "\u00B0F"),
   
   //
   // ENERGY
@@ -206,6 +211,63 @@ public enum Unit
   UNIT_Mmps  (PropertyBaseUnit.PROPERTY_VELOCITY, 1E6,   "Mm/s"),
   UNIT_Gmps  (PropertyBaseUnit.PROPERTY_VELOCITY, 1E9,   "Gm/s"),
   UNIT_Tmps  (PropertyBaseUnit.PROPERTY_VELOCITY, 1E12,  "Tm/s"),
+  
+  //
+  // ELECTRIC FIELD STRENGTH [V/m]
+  //
+  UNIT_aVpm  (PropertyBaseUnit.PROPERTY_ELECTRIC_FIELD_STRENGTH, 1E-18, "aV/m"),
+  UNIT_fVpm  (PropertyBaseUnit.PROPERTY_ELECTRIC_FIELD_STRENGTH, 1E-15, "fV/m"),
+  UNIT_pVpm  (PropertyBaseUnit.PROPERTY_ELECTRIC_FIELD_STRENGTH, 1E-12, "pV/m"),
+  UNIT_nVpm  (PropertyBaseUnit.PROPERTY_ELECTRIC_FIELD_STRENGTH, 1E-9,  "nV/m"),
+  UNIT_muVpm (PropertyBaseUnit.PROPERTY_ELECTRIC_FIELD_STRENGTH, 1E-6,  "\u03BCV/m"),
+  UNIT_mVpm  (PropertyBaseUnit.PROPERTY_ELECTRIC_FIELD_STRENGTH, 1E-3,  "mV/m"),
+  UNIT_cVpm  (PropertyBaseUnit.PROPERTY_ELECTRIC_FIELD_STRENGTH, 1E-2,  "cV/m"),
+  UNIT_dVpm  (PropertyBaseUnit.PROPERTY_ELECTRIC_FIELD_STRENGTH, 1E-1,  "dV/m"),
+  UNIT_Vpm   (PropertyBaseUnit.PROPERTY_ELECTRIC_FIELD_STRENGTH, 1,     "V/m"),
+  UNIT_daVpm (PropertyBaseUnit.PROPERTY_ELECTRIC_FIELD_STRENGTH, 1E1,   "daV/m"),
+  UNIT_hVpm  (PropertyBaseUnit.PROPERTY_ELECTRIC_FIELD_STRENGTH, 1E2,   "hV/m"),
+  UNIT_kVpm  (PropertyBaseUnit.PROPERTY_ELECTRIC_FIELD_STRENGTH, 1E3,   "kV/m"),
+  UNIT_MVpm  (PropertyBaseUnit.PROPERTY_ELECTRIC_FIELD_STRENGTH, 1E6,   "MV/m"),
+  UNIT_GVpm  (PropertyBaseUnit.PROPERTY_ELECTRIC_FIELD_STRENGTH, 1E9,   "GV/m"),
+  UNIT_TVpm  (PropertyBaseUnit.PROPERTY_ELECTRIC_FIELD_STRENGTH, 1E12,  "TV/m"),
+  
+  //
+  // MAGNETIC FIELD STRENGTH [A/m]
+  //
+  UNIT_aApm  (PropertyBaseUnit.PROPERTY_MAGNETIC_FIELD_STRENGTH, 1E-18, "aA/m"),
+  UNIT_fApm  (PropertyBaseUnit.PROPERTY_MAGNETIC_FIELD_STRENGTH, 1E-15, "fA/m"),
+  UNIT_pApm  (PropertyBaseUnit.PROPERTY_MAGNETIC_FIELD_STRENGTH, 1E-12, "pA/m"),
+  UNIT_nApm  (PropertyBaseUnit.PROPERTY_MAGNETIC_FIELD_STRENGTH, 1E-9,  "nA/m"),
+  UNIT_muApm (PropertyBaseUnit.PROPERTY_MAGNETIC_FIELD_STRENGTH, 1E-6,  "\u03BCA/m"),
+  UNIT_mApm  (PropertyBaseUnit.PROPERTY_MAGNETIC_FIELD_STRENGTH, 1E-3,  "mA/m"),
+  UNIT_cApm  (PropertyBaseUnit.PROPERTY_MAGNETIC_FIELD_STRENGTH, 1E-2,  "cA/m"),
+  UNIT_dApm  (PropertyBaseUnit.PROPERTY_MAGNETIC_FIELD_STRENGTH, 1E-1,  "dA/m"),
+  UNIT_Apm   (PropertyBaseUnit.PROPERTY_MAGNETIC_FIELD_STRENGTH, 1,     "A/m"),
+  UNIT_daApm (PropertyBaseUnit.PROPERTY_MAGNETIC_FIELD_STRENGTH, 1E1,   "daA/m"),
+  UNIT_hApm  (PropertyBaseUnit.PROPERTY_MAGNETIC_FIELD_STRENGTH, 1E2,   "hA/m"),
+  UNIT_kApm  (PropertyBaseUnit.PROPERTY_MAGNETIC_FIELD_STRENGTH, 1E3,   "kA/m"),
+  UNIT_MApm  (PropertyBaseUnit.PROPERTY_MAGNETIC_FIELD_STRENGTH, 1E6,   "MA/m"),
+  UNIT_GApm  (PropertyBaseUnit.PROPERTY_MAGNETIC_FIELD_STRENGTH, 1E9,   "GA/m"),
+  UNIT_TApm  (PropertyBaseUnit.PROPERTY_MAGNETIC_FIELD_STRENGTH, 1E12,  "TA/m"),
+  
+  //
+  // MAGNETIC INDUCTION [T]
+  //
+  UNIT_aT  (PropertyBaseUnit.PROPERTY_MAGNETIC_INDUCTION, 1E-18, "aT"),
+  UNIT_fT  (PropertyBaseUnit.PROPERTY_MAGNETIC_INDUCTION, 1E-15, "fT"),
+  UNIT_pT  (PropertyBaseUnit.PROPERTY_MAGNETIC_INDUCTION, 1E-12, "pT"),
+  UNIT_nT  (PropertyBaseUnit.PROPERTY_MAGNETIC_INDUCTION, 1E-9,  "nT"),
+  UNIT_muT (PropertyBaseUnit.PROPERTY_MAGNETIC_INDUCTION, 1E-6,  "\u03BCT"),
+  UNIT_mT  (PropertyBaseUnit.PROPERTY_MAGNETIC_INDUCTION, 1E-3,  "mT"),
+  UNIT_cT  (PropertyBaseUnit.PROPERTY_MAGNETIC_INDUCTION, 1E-2,  "cT"),
+  UNIT_dT  (PropertyBaseUnit.PROPERTY_MAGNETIC_INDUCTION, 1E-1,  "dT"),
+  UNIT_T   (PropertyBaseUnit.PROPERTY_MAGNETIC_INDUCTION, 1,     "T"),
+  UNIT_daT (PropertyBaseUnit.PROPERTY_MAGNETIC_INDUCTION, 1E1,   "daT"),
+  UNIT_hT  (PropertyBaseUnit.PROPERTY_MAGNETIC_INDUCTION, 1E2,   "hT"),
+  UNIT_kT  (PropertyBaseUnit.PROPERTY_MAGNETIC_INDUCTION, 1E3,   "kT"),
+  UNIT_MT  (PropertyBaseUnit.PROPERTY_MAGNETIC_INDUCTION, 1E6,   "MT"),
+  UNIT_GT  (PropertyBaseUnit.PROPERTY_MAGNETIC_INDUCTION, 1E9,   "GT"),
+  UNIT_TT  (PropertyBaseUnit.PROPERTY_MAGNETIC_INDUCTION, 1E12,  "TT"),
   
   ;
   
